@@ -1,36 +1,31 @@
-#!/bin/python3
+class Person:
+	def __init__(self, firstName, lastName, idNumber):
+		self.firstName = firstName
+		self.lastName = lastName
+		self.idNumber = idNumber
+	def printPerson(self):
+		print("Name:", self.lastName + ",", self.firstName)
+		print("ID:", self.idNumber)
 
-import math
-import os
-import random
-import re
-import sys
-
-def compareTriplets(a, b):
-    # Write your code here
-    alice = 0
-    bob = 0
-    for i in range(3):
-        
-        if a[i] > b[i]:
-            alice+=1
-        elif a[i] < b[i]:
-            bob+=1
-        else:
-            continue
-    total = [alice,bob]
-    return total
+class Student(Person):
+    def __init__(self, firstName, lastName, idNumber, scores):
+        super().__init__(firstName, lastName, idNumber)
+        self.scores = scores
     
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    def calculate(self):
+        avg = sum(self.scores)/len(self.scores)
+        
+        if avg <= 100 and avg >= 90:
+            return 'O'
+        elif avg < 90 and avg >=  80:
+            return 'E'
+        elif avg < 80 and avg >= 70:
+            return 'A'
+        elif avg < 70 and avg >= 55:
+            return 'P'
+        elif avg < 55 and avg >= 40:
+            return 'D'
+        else:
+            return 'T'
 
-    a = list(map(int, input().rstrip().split()))
-
-    b = list(map(int, input().rstrip().split()))
-
-    result = compareTriplets(a, b)
-
-    fptr.write(' '.join(map(str, result)))
-    fptr.write('\n')
-
-    fptr.close()
+line = input().split()
